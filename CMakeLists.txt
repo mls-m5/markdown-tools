@@ -1,4 +1,8 @@
 
+cmake_minimum_required(VERSION 3.22)
+
+project(markdown_tools)
+
 
 add_executable(
     markdown_download_images
