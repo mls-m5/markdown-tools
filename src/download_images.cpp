@@ -1,3 +1,4 @@
+#include "files.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -41,8 +42,12 @@ struct Settings {
                 shouldDryRun = true;
             }
             else {
-                markdownPath = arg;
+                markdownPath = getFile(arg);
             }
+        }
+
+        if (imagePath.empty()) {
+            imagePath = getFile("z-images");
         }
 
         if (imagePath.empty()) {
@@ -71,7 +76,8 @@ int main(int argc, char **argv) {
     auto file = std::ifstream{settings.markdownPath};
 
     if (!file) {
-        std::cerr << "could not open markdown file\n";
+        std::cerr << "could not open markdown file " << settings.markdownPath
+                  << "\n";
         std::terminate();
     }
 
